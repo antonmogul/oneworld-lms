@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "dotenv -- turbo run dev",
     "client:dev": "dotenv -- yarn workspace client run dev",
-    "start": "dotenv -- turbo run start",
+    "start": "dotenv -- yarn workspace server run start",
     "build": "dotenv -- turbo run build",
     "client:gen": "dotenv -- yarn workspace client run gen",
     "db:gen": "dotenv -- yarn workspace orm run db:gen",
