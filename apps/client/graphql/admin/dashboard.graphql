@@ -1,0 +1,486 @@
+query adminGetAllUsers {
+  adminGetAllUsers {
+    id
+    firstName
+    lastName
+    email
+    avatar
+    enabled
+    createdAt
+    updatedAt
+  }
+}
+
+query adminGetUser($userId: String!) {
+  adminGetUser(userId: $userId) {
+    user {
+      id
+      firstName
+      lastName
+      email
+      avatar
+      enabled
+      createdAt
+      updatedAt
+      lessonProgress {
+        id
+        lessonId
+        progress
+        completed
+        completedAt
+      }
+      certificate {
+        id
+        certificationId
+        createdAt
+        updatedAt
+      }
+    }
+    lessons {
+      id
+      title
+      certificationId
+      certificationDetails
+      image
+      tag
+      enabled
+      createdAt
+      updatedAt
+      slideCount
+    }
+  }
+}
+
+mutation adminUpdateUserStatus(
+  $userId: String!
+  $status: Boolean!
+) {
+  adminUpdateUserStatus(userId: $userId, status: $status) {
+    enabled
+  }
+}
+
+mutation adminCreateNotification(
+  $title: String!
+  $description: String!
+  $type: String!
+  $notificationData: String!
+) {
+  adminCreateNotification(
+    title: $title
+    description: $description
+    type: $type
+    notificationData: $notificationData
+  )
+}
+
+query adminGetAllNotifications {
+  adminGetAllNotifications {
+    id
+    title
+    description
+    type
+    notificationData
+    createdAt
+    updatedAt
+  }
+}
+
+query adminDashboard {
+  adminDashboard {
+    lessons
+    users
+    notifications
+  }
+}
+
+query adminGetAllCourse {
+  adminGetAllCourse {
+    id
+    title
+    image
+    tag
+    enabled
+    createdAt
+    updatedAt
+  }
+}
+
+query adminGetCourse($lessonId: String!) {
+  adminGetCourse(lessonId: $lessonId) {
+    id
+    title
+    certificationDetails
+    image
+    tag
+    lessonsSlides
+    quizSlides
+    enabled
+    successTitle
+    successDescription
+    successButtonText
+    createdAt
+    updatedAt
+    certificationId
+    # _count {
+    #   courseProgress
+    #   slides
+    #   certificate
+    # }
+  }
+}
+
+mutation adminCreateBlankCourse {
+  adminCreateBlankCourse {
+    id
+  }
+}
+
+mutation adminUpdateCourseDetails(
+  $title: String!
+  $plainTitle: String!
+  $tag: String!
+  $image: String!
+  $lessonId: String!
+  $certificationId: String!
+) {
+  adminUpdateCourseDetails(
+    title: $title
+    plainTitle: $plainTitle
+    tag: $tag
+    lessonId: $lessonId
+    image: $image
+    certificationId: $certificationId
+  )
+}
+
+mutation adminUpdateSuccessDetails(
+  $successButtonText: String!
+  $successDescription: String!
+  $successTitle: String!
+  $lessonId: String!
+) {
+  adminUpdateSuccessDetails(
+    successButtonText: $successButtonText
+    successDescription: $successDescription
+    successTitle: $successTitle
+    lessonId: $lessonId
+  )
+}
+
+mutation adminUpdateCourseCertificateDetails(
+  $certificationDetails: String!
+  $lessonId: String!
+) {
+  adminUpdateCourseCertificateDetails(
+    certificationDetails: $certificationDetails
+    lessonId: $lessonId
+  )
+}
+
+mutation adminCreateBlankSlide(
+  $type: String!
+  $templateKey: String!
+  $lessonId: String!
+  $swipeGroupValue: Float!
+) {
+  adminCreateBlankSlide(
+    type: $type
+    templateKey: $templateKey
+    lessonId: $lessonId,
+    swipeGroupValue: $swipeGroupValue
+  ) {
+    id
+    data
+    templateKey
+    type
+    createdAt
+    updatedAt
+    lessonId
+  }
+}
+
+mutation adminUpdateCourseLessonsDetails(
+  $lessons: String!
+  $lessonId: String!
+) {
+  adminUpdateCourseLessonsDetails(
+    lessons: $lessons
+    lessonId: $lessonId
+  )
+}
+mutation adminUpdateQuizLessonsDetails(
+  $quizes: String!
+  $lessonId: String!
+) {
+  adminUpdateQuizLessonsDetails(
+    quizes: $quizes
+    lessonId: $lessonId
+  )
+}
+
+query adminGetSlides($slidesIds: [String!]!) {
+  adminGetSlides(slidesIds: $slidesIds) {
+    id
+    data
+    templateKey
+    type
+    createdAt
+    updatedAt
+    lessonId
+  }
+}
+
+mutation adminUpdateSlide(
+  $slideId: String!
+  $data: String!
+) {
+  adminUpdateSlide(slideId: $slideId, data: $data) {
+    id
+    data
+    templateKey
+    type
+    createdAt
+    updatedAt
+    lessonId
+  }
+}
+
+mutation adminUploadMedia($files: [Upload!]!) {
+  uploadMedia(files: $files) {
+    id
+    publicURL
+    size
+    type
+    name
+    createdBy
+    createdAt
+    enabled
+  }
+}
+
+mutation adminDeleteSlide(
+  $lessonId: String!
+  $slideId: String!
+) {
+  adminRemoveSlide(lessonId: $lessonId, slideId: $slideId)
+}
+
+mutation adminUpdateCourseStatus(
+  $lessonId: String!
+  $status: Boolean!
+) {
+  adminUpdateCourseStatus(
+    lessonId: $lessonId
+    status: $status
+  )
+}
+
+query reportActiveUsers (
+  $airlineId: String!
+  $filter: String!
+  ) {
+  getActiveUsers (
+    airlineId: $airlineId
+    filter: $filter
+    ) {
+    totalActiveUsers
+    graphData {
+      date
+      month
+      startDate
+      endDate
+      value
+    }
+  }
+}
+
+query getNewSignups (
+  $airlineId: String!
+  $filter: String!
+  ) {
+  getNewSignups (
+    airlineId: $airlineId
+    filter: $filter
+  ) {
+    date
+    month
+    startDate
+    endDate
+    value
+  }
+}
+
+query getFullyCertifiedData (
+  $airlineId: String!
+) {
+  getFullyCertifiedData (
+    airlineId: $airlineId
+  ) {
+    totalUsers
+    certifiedUsers
+    uncertifiedUsers
+  }
+}
+
+query getCoursesReportData (
+  $airlineId: String!
+  $lessonId: String!
+  ) {
+  getCoursesReportData (
+    airlineId: $airlineId
+    lessonId: $lessonId
+    ) {
+    coursesNotStarted
+    coursesNotCompleted
+    coursesCompleted
+  }
+}
+
+query getCourseCompletionReport (
+  $airlineId: String!
+) {
+  getCourseCompletionReport (
+    airlineId: $airlineId
+  ) {
+    courseTitle
+    completions
+  }
+}
+
+query adminGetAllCertifications {
+  adminGetAllCertifications {
+    id
+    title
+    image
+    pdf
+    certificateDetails
+    createdAt
+  }
+}
+
+query adminGetCertificationById ($certificationId: String!) {
+  adminGetCertificationById(certificationId: $certificationId) {
+    id
+    title
+    image
+    pdf
+    certificateDetails
+    createdAt
+  }
+}
+
+mutation createCertifications (
+  $image: String!
+  $pdf: String! 
+  $title: String!
+  $certificateDetails: String!
+) {
+  adminCreateCertification(
+    image: $image
+    pdf: $pdf
+    title: $title
+    certificateDetails: $certificateDetails
+  )
+}
+
+mutation updateCertification (
+  $image: String!
+  $title: String!
+  $pdf: String! 
+  $certificationId: String!
+  $certificateDetails: String!
+) {
+  adminUpdateCertification(
+    image: $image
+    title: $title
+    pdf: $pdf
+    certificationId: $certificationId
+    certificateDetails: $certificateDetails
+    )
+}
+
+mutation deleteCertification (
+  $certificationId: String!
+) {
+  adminDeleteCertification(
+    certificationId: $certificationId
+    )
+}
+
+query getAllAirlines {
+  getAllAirlines {
+    id
+    title
+    domain
+    enable
+    _count {
+      user
+    }
+  }
+}
+
+query landingDetails(
+  $airlineId: String!
+  $activeUsersFilter: String!
+  $newSignUpFilter: String!
+  $lessonId:String!
+  ) {
+  getActiveUsers (
+    airlineId: $airlineId
+    filter: $activeUsersFilter
+    ) {
+    totalActiveUsers
+    graphData {
+      date
+      month
+      startDate
+      endDate
+      value
+    }
+  }
+
+  getNewSignups (
+    airlineId: $airlineId
+    filter: $newSignUpFilter
+  ) {
+    date
+    month
+    startDate
+    endDate
+    value
+  }
+
+    getFullyCertifiedData (
+    airlineId: $airlineId
+  ) {
+    totalUsers
+    certifiedUsers
+    uncertifiedUsers
+  }
+
+   getCoursesReportData (
+    airlineId: $airlineId
+    lessonId: $lessonId
+    ) {
+    coursesNotStarted
+    coursesNotCompleted
+    coursesCompleted
+  }
+
+  getCourseCompletionReport (
+    airlineId: $airlineId
+  ) {
+    courseTitle
+    completions
+  }
+
+}
+
+mutation adminDeleteCourse(
+  $lessonId: String!
+) {
+  adminDeleteCourse(
+    lessonId: $lessonId
+  )
+}

@@ -1,0 +1,51 @@
+# =============================================================================
+# OneWorld LMS - Git Ignore
+# =============================================================================
+# Excludes generated files, dependencies, and environment-specific files
+# These will be built on Railway during deployment
+# =============================================================================
+
+# Dependencies
+node_modules/
+yarn.lock
+package-lock.json
+
+# Build outputs (generated during Railway build)
+dist/
+build/
+.turbo/
+.parcel-cache/
+
+# Environment variables (never commit secrets!)
+.env
+.env.local
+.env.production
+.env.development
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.history/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Generated Prisma files (will be generated during build)
+packages/orm/generated/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

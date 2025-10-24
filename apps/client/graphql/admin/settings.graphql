@@ -1,0 +1,18 @@
+mutation adminChangePassword(
+  $newPassword: String!
+  $oldPassword: String!
+) {
+  adminChangePassword(newPassword: $newPassword, oldPassword: $oldPassword) {
+    token
+    firstName
+    lastName
+  }
+}
+
+query adminMe {
+  adminMe {
+    firstName
+    lastName
+    email
+  }
+}

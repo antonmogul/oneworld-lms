@@ -1,0 +1,71 @@
+mutation publicLogin($email: String!, $password: String!) {
+  publicLogin(email: $email, password: $password){
+    id,
+    token,
+    firstName,
+    lastName,
+    message
+  }
+}
+
+mutation publicLoginSSO($email: String!) {
+  publicLoginSSO(email: $email){
+    id,
+    token,
+    firstName,
+    lastName,
+    message
+  }
+}
+
+mutation publicForgotPassword($email: String!) {
+    publicForgotPassword(email: $email)
+}
+
+mutation publicResetPassword($newPassword: String!, $token: String!) {
+  publicResetPassword(newPassword: $newPassword, token: $token )
+}
+
+mutation publicSignup($firstName:String!, $lastName: String!, $email:String!, $password: String!) {
+  publicSignup(firstName:$firstName, lastName: $lastName, email:$email, password: $password) {
+    id,
+    token,
+    firstName,
+    lastName,
+    message
+  }
+}
+
+mutation publicResendLoginOTP($email: String!, $OTPType: String!) {
+  publicResendLoginOTP(email: $email, OTPType: $OTPType) {
+    id,
+    token,
+    firstName,
+    lastName,
+    message
+  }
+}
+
+mutation verifySignupOTP($email: String!, $otp: String!, $rememberMe: Boolean!) {
+  verifySignupOTP(email: $email, otp: $otp, rememberMe: $rememberMe) {
+    id,
+    token,
+    firstName,
+    lastName,
+    message
+  }
+}
+
+mutation verifyLoginOTP($email: String!, $otp: String!, $rememberMe: Boolean!) {
+  verifyLoginOTP(email: $email, otp: $otp, rememberMe: $rememberMe) {
+    id,
+    token,
+    firstName,
+    lastName,
+    message
+  }
+}
+
+mutation updateUserEmailSubscriptionStatus($email: String!, $status: Boolean!) {
+  updateUserEmailSubscriptionStatus(email: $email, status: $status)
+}

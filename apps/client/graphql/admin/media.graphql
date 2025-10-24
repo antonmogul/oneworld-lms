@@ -1,0 +1,12 @@
+query listMedia {
+  listMedia {
+    id
+    publicURL
+    size
+    type
+    name
+    enabled
+    createdBy
+    createdAt
+  }
+}

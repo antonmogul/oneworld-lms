@@ -1,0 +1,100 @@
+query getCertificates {
+    getCertificates {
+        id
+        userId
+        createdAt
+        updatedAt
+        certification {
+            id
+            title
+            image
+            pdf
+            certificateDetails
+        }
+    }
+}
+
+query getCertificateById ($certificateId: String!) {
+    getCertificatesById( certificateId: $certificateId) {
+        id
+        certification {
+            id
+            title
+            image
+            pdf
+            certificateDetails
+        }
+        userId
+        createdAt
+        updatedAt
+    }
+}
+
+mutation createCertificate ($lessonId: String!) {
+    createCertificate(lessonId: $lessonId) {
+        id
+        userId
+        createdAt
+        updatedAt
+        certificationId
+    }
+}
+
+query publicGetAllCertifications {
+    publicGetAllCertifications {
+        id
+        title
+        image
+        pdf
+        certificateDetails
+        createdAt
+        lesson {
+            id
+            enabled
+            lessonProgress {
+                id
+                userId
+                lessonId
+                progress
+                completedAt
+                completed
+                createdAt
+                updatedAt
+            }
+        }
+        certificate {
+            id
+        }
+    }
+}
+
+query publicGetCertificationById ($certificationId: String!) {
+    publicGetCertificationById (certificationId: $certificationId) {
+        id
+        title
+        image
+        pdf
+        certificateDetails
+        createdAt
+        lesson {
+            id
+            title
+            image
+            tag
+            certificationId
+            lessonProgress {
+                id
+                userId
+                lessonId
+                progress
+                completedAt
+                completed
+                createdAt
+                updatedAt
+            }
+        }
+        certificate {
+            id
+        }
+    }
+}

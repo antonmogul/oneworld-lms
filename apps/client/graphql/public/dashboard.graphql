@@ -1,0 +1,53 @@
+query userMe {
+    userMe {
+        firstName
+        lastName
+        email
+        avatar
+        airline
+    }
+}
+
+mutation publicChangePassword($newPassword:String!, $oldPassword: String!) {
+  publicChangePassword(newPassword:$newPassword, oldPassword:$oldPassword) {
+    token
+    firstName
+    lastName
+  }
+}
+
+mutation publicUploadAvatar($file: Upload!) {
+  publicUploadAvatar(file: $file)
+}
+
+mutation publicDeleteAvatar {
+  publicDeleteAvatar
+}
+
+query getUserSavedItems {
+  getUserSavedItems {
+    id
+    savedItemKey
+    type
+    userId
+    createdAt
+    updatedAt
+    displayData{
+      heading
+      tag
+      footerText
+      image
+      isCompleted
+      lessonId
+      certificateId
+    }
+  }
+}
+
+mutation userAddToSave($itemId:String!,$itemType:savedItemType!){
+  addToSave(itemId:$itemId,itemType:$itemType)
+}
+
+mutation userRemoveFromSave($savedId:String!){
+  removeFromSave(saveId:$savedId)
+}

@@ -1,0 +1,65 @@
+query getCourseUpdateNotification {
+    getCourseUpdateNotification {
+        id
+        title
+        description
+        type
+        notificationData
+        createdAt
+        updatedAt
+        userId
+    }
+}
+
+
+query getReminderNotification {
+
+    getReminderNotification {
+            id
+            title
+            description
+            type
+            notificationData
+            createdAt
+            updatedAt
+            userId
+
+    }
+}
+
+query getSystemNotification {
+
+    getSystemNotification {
+        id
+        title
+        description
+        type
+        notificationData
+        createdAt
+        updatedAt
+        userId
+    }
+
+}
+
+query getAllNotifications {
+
+    getAllNotifications {
+        id
+        title
+        description
+        type
+        notificationData
+        createdAt
+        updatedAt
+        userId
+    }
+}
+
+query getAndUpdateUserNotificationLastSeen {
+    getAndUpdateUserNotificationLastSeen
+}
+
+query getUserNotificationLastSeen {
+    getUserNotificationLastSeen
+}

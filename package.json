@@ -1,0 +1,37 @@
+{
+  "name": "oneworld-fullstack",
+  "version": "1.0.0",
+  "description": "oneworld-fullstack",
+  "packageManager": "yarn@1.22.19",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "dotenv -- turbo run dev",
+    "client:dev": "dotenv -- yarn workspace client run dev",
+    "start": "dotenv -- turbo run start",
+    "build": "dotenv -- turbo run build",
+    "client:gen": "dotenv -- yarn workspace client run gen",
+    "db:gen": "dotenv -- yarn workspace orm run db:gen",
+    "db:pull": "dotenv -- yarn workspace orm run db:pull",
+    "db:push": "dotenv -- yarn workspace orm run db:push",
+    "db:show": "dotenv -- yarn workspace orm run db:show",
+    "server:start": "dotenv -- yarn workspace server run start"
+  },
+  "private": true,
+  "devDependencies": {
+    "buffer": "^5.5.0||^6.0.0",
+    "dotenv-cli": "^7.2.1",
+    "process": "^0.11.10"
+  },
+  "_moduleAliases": {
+    "@config": "apps/server/dist/config",
+    "@graphql": "apps/server/dist/modules/graphql",
+    "@services": "apps/server/dist/modules/services",
+    "@apollo_service": "apps/server/dist/modules/apollo",
+    "@utils": "apps/server/dist/utils",
+    "@middleware": "apps/server/dist/modules/middleware",
+    "types": "apps/server/dist/types"
+  }
+}

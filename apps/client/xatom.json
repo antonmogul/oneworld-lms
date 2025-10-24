@@ -1,0 +1,8 @@
+{
+  "webflowSubdomain": "oneworld-lms-v3",
+  "port": 3050,
+  "source": "./src/index.ts",
+  "dist": "./dist",
+  "scriptList": ["index.js"],
+  "scriptAttribute": "replace-it"
+}

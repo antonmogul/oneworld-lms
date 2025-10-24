@@ -1,0 +1,144 @@
+query getLessonSlides($lessonId: String!) {
+    getLessonSlides(lessonId: $lessonId) {
+        id
+        data
+        templateKey
+        type
+        createdAt
+        updatedAt
+        lessonId
+    }
+}
+
+query getQuizSlides($lessonId: String!) {
+    getQuizSlides(lessonId: $lessonId) {
+        id
+        data
+        templateKey
+        type
+        createdAt
+        updatedAt
+        lessonId
+    }
+}
+
+query getAllLessonProgress {
+    getAllLessonProgress {
+        id
+        userId
+        lessonId
+        progress
+        totalSlides
+        completedAt
+        completed
+        createdAt
+        updatedAt
+        lesson {
+            id
+            title
+            certificationDetails
+            image
+            tag
+            lessonsSlides
+            quizSlides
+            enabled
+            createdAt
+            updatedAt
+            successTitle
+            successDescription
+            successButtonText
+        }
+    }
+}
+
+query getLessonProgress($lessonId: String!) {
+    getLessonProgress(lessonId: $lessonId) {
+        id
+        userId
+        lessonId
+        progress
+        totalSlides
+        completedAt
+        completed
+        createdAt
+        updatedAt
+        lesson {
+            id
+            title
+            certificationDetails
+            image
+            tag
+            lessonsSlides
+            quizSlides
+            enabled
+            createdAt
+            updatedAt
+            successTitle
+            successDescription
+            successButtonText
+        }
+    }
+}
+
+mutation updateLessonProgress(
+    $isCompleted: Boolean!,
+    $progress: Float!,
+    $lessonProgressId: String!
+) {
+    updateLessonProgress(
+        isCompleted: $isCompleted,
+        progress: $progress,
+        lessonProgressId: $lessonProgressId
+    )
+}
+
+query getAllLessons {
+    getAllLessons {
+        id
+        title
+        certificationDetails
+        image
+        tag
+        lessonsSlides
+        quizSlides
+        enabled
+        createdAt
+        updatedAt
+    }
+}
+
+query getLessonSlides($lessonId: String!) {
+    getLessonSlides(lessonId: $lessonId) {
+        id
+        data
+        templateKey
+        type
+        createdAt
+        updatedAt
+        lessonId
+    }
+}
+
+query getQuizSlides($lessonId: String!) {
+    getQuizSlides(lessonId: $lessonId) {
+        id
+        data
+        templateKey
+        type
+        createdAt
+        updatedAt
+        lessonId
+    }
+}
+
+mutation startLesson($lessonId: String!) {
+    startLesson(lessonId: $lessonId)
+}
+
+mutation restartLesson($lessonId: String!) {
+    restartLesson(lessonId: $lessonId)
+}
+
+mutation restartCourse($certificationId: String!) {
+    restartCourse(certificationId: $certificationId)
+}

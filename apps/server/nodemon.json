@@ -1,0 +1,4 @@
+{
+  "watch": ["src/**/*.*", "../../.env"],
+  "exec": "yarn build && yarn workspace server start"
+}

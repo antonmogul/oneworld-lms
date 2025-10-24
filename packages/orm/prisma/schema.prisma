@@ -1,0 +1,196 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../generated"
+  binaryTargets = ["native", "darwin", "linux-arm64-openssl-1.0.x", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
+}
+
+generator typegraphql {
+  provider           = "typegraphql-prisma"
+  output             = "../generated/type-graphql"
+  emitTranspiledCode = true
+}
+
+model test {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  message    String @default("")
+  messageNew String @default("")
+}
+
+model user {
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  firstName         String
+  lastName          String
+  email             String
+  airlineId         String           @db.ObjectId
+  airline           airline          @relation(fields: [airlineId], references: [id])
+  avatar            String
+  enabled           Boolean          @default(true)
+  /// @TypeGraphQL.omit(output: true)
+  password          String?          @default("")
+  /// @TypeGraphQL.omit(output: true)
+  tokenVersion      Int              @default(0)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now())
+  lastNotification  DateTime?        @default(now())
+  ssoLogin          Boolean?         @default(false)
+  emailSubscription Boolean          @default(true)
+  lessonProgress    lessonProgress[]
+  savedItems        savedItems[]
+  notification      notification[]
+  certificate       certificate[]
+}
+
+model OTP {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  type       OTPType
+  otp        String
+  isUsed     Boolean  @default(false)
+  created_at DateTime @default(now())
+}
+
+enum OTPType {
+  SIGNUP
+  LOGIN
+  RESET_PASSWORD
+}
+
+model admin {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName    String
+  lastName     String
+  email        String
+  password     String
+  tokenVersion Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+}
+
+model lesson {
+  id                   String           @id @default(auto()) @map("_id") @db.ObjectId
+  title                String
+  plainTitle           String
+  certificationDetails String
+  image                String
+  tag                  String
+  lessonsSlides        String
+  quizSlides           String
+  enabled              Boolean          @default(true)
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @default(now())
+  successTitle         String           @default("")
+  successDescription   String           @default("")
+  successButtonText    String           @default("")
+  certificationId      String?          @db.ObjectId
+  certification        certification?   @relation(fields: [certificationId], references: [id])
+  lessonProgress       lessonProgress[]
+  slides               slides[]
+}
+
+model slides {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  data        String
+  templateKey String
+  type        slideType
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  lesson      lesson    @relation(fields: [lessonId], references: [id])
+  lessonId    String    @db.ObjectId
+}
+
+enum slideType {
+  LESSONS
+  QUIZ
+}
+
+model lessonProgress {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  user        user      @relation(fields: [userId], references: [id])
+  userId      String    @db.ObjectId
+  lesson      lesson    @relation(fields: [lessonId], references: [id])
+  lessonId    String    @db.ObjectId
+  progress    Int
+  completedAt DateTime?
+  completed   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+}
+
+model certificate {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  user            user           @relation(fields: [userId], references: [id])
+  userId          String         @db.ObjectId
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @default(now())
+  certification   certification  @relation(fields: [certificationId], references: [id])
+  certificationId String         @db.ObjectId
+}
+
+model savedItems {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  savedItemKey String
+  type         savedItemType
+  user         user          @relation(fields: [userId], references: [id])
+  userId       String        @db.ObjectId
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+}
+
+enum savedItemType {
+  COURSE
+  SLIDE
+}
+
+model notification {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String
+  type             notificationType
+  notificationData String
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @default(now())
+  user             user?            @relation(fields: [userId], references: [id])
+  userId           String?          @db.ObjectId
+}
+
+enum notificationType {
+  LESSON_UPDATE
+  REMINDER
+  SYSTEM_UPDATE
+}
+
+model mediaContent {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  publicURL String?
+  size      String   @default("")
+  type      String   @default("")
+  name      String   @default("")
+  createdBy String   @db.ObjectId
+  createdAt DateTime @default(now())
+  enabled   Boolean  @default(true)
+}
+
+model certification {
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  title               String
+  image               String        @default("")
+  pdf                 String        @default("")
+  createdAt           DateTime      @default(now())
+  certificateDetails  String
+  lesson      lesson[]
+  certificate certificate[]
+}
+
+model airline {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  code    String  @default("")
+  title   String  @default("")
+  domain  String  @default("")
+  enable  Boolean @default(true)
+  user    user[]
+}
