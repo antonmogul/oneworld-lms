@@ -10,7 +10,7 @@
     "db:pull": "prisma db pull  && yarn build",
     "db:push": "prisma db push && yarn build",
     "db:show": "prisma studio",
-    "copy:files": "rm -R ./dist/generated && cp -R ./generated ./dist",
+    "copy:files": "rm -rf ./dist/generated 2>/dev/null || true && mkdir -p ./dist && cp -R ./generated ./dist",
     "build": "tsc && yarn copy:files"
   },
   "devDependencies": {
