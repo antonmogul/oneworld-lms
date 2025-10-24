@@ -27,7 +27,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc",
+    "build": "tsc --noEmitOnError false",
     "start": "node ./dist/prod.js"
   },
   "devDependencies": {
